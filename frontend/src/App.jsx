@@ -69,57 +69,86 @@ const SupplyChainUI = () => {
 
   return (
     <div className="container">
-      <header>
-        <h1>Supply Chain UI</h1>
-        <p>Account: {account}</p>
+      <header className="header">
+        <h1>Suppliers Record</h1>
+        <br />
+        <br />
+        
       </header>
-      <main>
-        <section>
+      
+      <main className="main-content">
+        <section className="new-product-section">
+          <p className="account-info"> Account: {account}</p>
           <h2>Create New Product</h2>
-          <form onSubmit={handleNewProductSubmit}>
+          <form onSubmit={handleNewProductSubmit} className="product-form">
             <label>
-              Name:
-              <input type="text" value={newProduct.name} onChange={(event) => setNewProduct({ ...newProduct, name: event.target.value })} />
+              <b>Name: </b>
+              <input
+                type="text"
+                value={newProduct.name}
+                onChange={(event) => setNewProduct({ ...newProduct, name: event.target.value })}
+                className="input-field"
+              />
             </label>
             <br />
+            <br />
+            
             <label>
-              Description:
-              <input type="text" value={newProduct.description} onChange={(event) => setNewProduct({ ...newProduct, description: event.target.value })} />
+              <b>Description: </b>
+              <input
+                type="text"
+                value={newProduct.description}
+                onChange={(event) => setNewProduct({ ...newProduct, description: event.target.value })}
+                className="input-field"
+              />
             </label>
             <br />
+            <br />
+            
             <label>
-              Price:
-              <input type="number" value={newProduct.price} onChange={(event) => setNewProduct({ ...newProduct, price: event.target.value })} />
+              <b>Price: </b>
+              <input
+                type="number"
+                value={newProduct.price}
+                onChange={(event) => setNewProduct({ ...newProduct, price: event.target.value })}
+                className="input-field"
+              />
             </label>
             <br />
-            <button type="submit">Create Product</button>
+            
+            <br />
+            <button type="submit" className="submit-button">Create Product</button>
           </form>
         </section>
-        <section>
+        <br />
+        <br />
+        <section className="products-section">
           <h2>Products</h2>
-          <ul>
+          <ul className="product-list">
             {products.map((product, index) => (
-              <li key={index}>
-                <span>{product.name}</span>
-                <span>{product.description}</span>
-                <span>{product.price} ETH</span>
-                <button onClick={() => handleProductClick(product.id)}>View Details</button>
+              <li key={index} className="product-item">
+                <span className="product-name">{product.name}</span>
+                <span className="product-description">{product.description}</span>
+                <span className="product-price">{product.price} ETH</span>
+                <button onClick={() => handleProductClick(product.id)} className="view-details-button">View Details</button>
               </li>
             ))}
           </ul>
         </section>
+  
         {selectedProduct && (
-          <section>
+          <section className="product-details-section">
             <h2>Product Details</h2>
-            <p>Id: {selectedProduct.id}</p>
-            <p>Name: {selectedProduct.name}</p>
-            <p>Description: {selectedProduct.description}</p>
-            <p>Price: {selectedProduct.price} ETH</p>
+            <p><strong>Id:</strong> {selectedProduct.id}</p>
+            <p><strong>Name:</strong> {selectedProduct.name}</p>
+            <p><strong>Description:</strong> {selectedProduct.description}</p>
+            <p><strong>Price:</strong> {selectedProduct.price} ETH</p>
           </section>
         )}
       </main>
     </div>
   );
+  
 };
 
 export default SupplyChainUI;
