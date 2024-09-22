@@ -1,0 +1,32 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.27;
+
+contract ItemRegistry {
+    // Mapping of item IDs to item details
+    mapping (uint => ItemDetails) public items;
+
+    // Event emitted when a new item is registered
+    event NewItem(uint itemId, string itemName, uint itemPrice);
+
+    // Struct to represent an item
+    struct ItemDetails {
+        uint id;
+        string name;
+        uint price;
+    }
+
+    // Function to register a new item
+    function registerItem(string memory _itemName, uint _itemPrice) public {
+        require(bytes(_itemName).length > 0, "Item name cannot be empty");
+        require(_itemPrice > 0, "Item price must be greater than zero");
+        uint itemId = uint(keccak256(abi.encodePacked(_itemName, _itemPrice)));
+        items[itemId] = ItemDetails(itemId, _itemName, _itemPrice);
+        emit NewItem(itemId, _itemName, _itemPrice);
+    }
+
+    // Function to get item details by ID
+    function getItem(uint _itemId) public view returns (uint, string memory, uint) {
+        ItemDetails storage item = items[_itemId];
+        return (item.id, item.name, item.price);
+    }
+}
